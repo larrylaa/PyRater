@@ -12,6 +12,7 @@ load_dotenv()
 
 media = Path("resumes")
 
+# TODO: CONNECT SUPABASE
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 
 @app.route('/')
@@ -48,6 +49,8 @@ def gemini_call(file_name):
     
     except Exception as e:
         return f'An error occured: {e}'
+    
+# TODO: SUPABASE SQL QUERIES
 
 if __name__ == '__main__':
     app.run(debug=True)
