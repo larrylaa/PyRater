@@ -69,4 +69,3 @@ python app.py
 - Google Gemini API
 - Supabase API
 - Virtualenv
----
