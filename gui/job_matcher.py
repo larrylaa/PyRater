@@ -5,6 +5,7 @@ from services.supabase_db import store_rating
 from utils.pdf_utils import choose_pdf_file, get_pdf_preview
 import os
 
+# TODO: MAKE THIS WORK - LARRY
 class JobMatcherGUI:
     def __init__(self, master, username):
         self.master = master
