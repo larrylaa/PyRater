@@ -1,17 +1,15 @@
 import tkinter as tk
-from tkinter import filedialog, messagebox
-from pdfminer.high_level import extract_text
+from tkinter import messagebox
 from services.gemini import gemini_rate
 from services.supabase_db import store_rating
-
+from utils.pdf_utils import choose_pdf_file, get_pdf_preview
 import os
 
-# TODO: REFACTOR FOR MATCHING
 class JobMatcherGUI:
     def __init__(self, master, username):
         self.master = master
         self.username = username
-        master.title("Resume Rater")
+        master.title("PyRater - Job Matcher")
 
         self.rating_var = tk.StringVar(value="X / 100")
         self.rating_label = tk.Label(master, textvariable=self.rating_var, font=("Arial", 24))
@@ -49,14 +47,9 @@ class JobMatcherGUI:
         self.improvement_text.config(state=tk.DISABLED)
 
         self.resume_file_path = None
-
+        
     def upload_file(self):
-        filetypes = (('PDF files', '*.pdf'),)
-        filepath = filedialog.askopenfilename(
-            title='Open a file',
-            initialdir=os.path.expanduser("~"),
-            filetypes=filetypes)
-
+        filepath = choose_pdf_file()
         if filepath:
             self.resume_file_path = filepath
             self.file_path_label.config(text=os.path.basename(filepath))
@@ -66,10 +59,7 @@ class JobMatcherGUI:
     def display_resume_preview(self, filepath):
         preview_text = ""
         try:
-            if filepath.lower().endswith(".pdf"):
-                preview_text = self.extract_text_from_pdf(filepath)
-            else:
-                preview_text = "Please upload a PDF file."
+            preview_text = get_pdf_preview(filepath)
         except Exception as e:
             preview_text = f"Error displaying preview: {e}"
 
@@ -77,13 +67,7 @@ class JobMatcherGUI:
         self.preview_text.delete("1.0", tk.END)
         self.preview_text.insert(tk.END, preview_text)
         self.preview_text.config(state=tk.DISABLED)
-
-    def extract_text_from_pdf(self, pdf_path):
-        try:
-            return extract_text(pdf_path, maxpages=1)
-        except Exception as e:
-            return f"Error extracting text from PDF: {e}"
-
+        
     def rate_resume(self):
         if self.resume_file_path:
             feedback_arr = gemini_rate(self.resume_file_path)
