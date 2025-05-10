@@ -2,7 +2,6 @@
 
 A Python application that uses the Google Gemini API to rate resumes and provide feedback.
 
-
 ## Running Locally
 
 ### 1. Setup
@@ -29,12 +28,14 @@ pip install virtualenv
 #### Create and Activate a Virtual Environment
 
 **Windows:**
+
 ```bash
 python -m venv env
 env\Scripts\activate
 ```
 
 **Mac/Linux:**
+
 ```bash
 python3 -m venv env
 source env/bin/activate
@@ -44,10 +45,9 @@ source env/bin/activate
 
 ### 2. Install Dependencies
 
-After activating the virtual environment, navigate to the `backend` directory and install the required packages:
+After activating the virtual environment, install requirements using the below command.
 
 ```bash
-cd backend
 pip install -r requirements.txt
 ```
 
@@ -60,6 +60,7 @@ Make sure your virtual environment is still activated, then run:
 ```bash
 python app.py
 ```
+
 ---
 
 ## Tech Stack
