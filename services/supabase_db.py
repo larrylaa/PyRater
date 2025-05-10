@@ -10,7 +10,7 @@ key: str = os.environ.get("SUPABASE_KEY")
 def get_supabase_client() -> Client:
     return create_client(url, key)
 
-def store_rating(rating: int, feedback: str, improvements: str, resume_text: str, user: str) -> str:
+def store_rating(rating: int, feedback: str, improvements: str, resume_text: str, user: str, rating_type: str) -> str:
     try:
         supabase = get_supabase_client()
         response = (
@@ -20,7 +20,8 @@ def store_rating(rating: int, feedback: str, improvements: str, resume_text: str
                 "feedback": feedback,
                 "improvements": improvements,
                 "resume": resume_text,
-                "user": user
+                "user": user,
+                "type": rating_type
             })
             .execute()
         )

@@ -49,6 +49,7 @@ def handle_menu(username, is_new_user=False):
                     break
                 case 3:
                     ratings = fetch_user_ratings(username.lower())
+                    print(ratings)
                     start_viewer(username, ratings)
                     break
                 case 4:

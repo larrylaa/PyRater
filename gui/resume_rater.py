@@ -89,7 +89,7 @@ class ResumeRaterGUI:
             self.improvement_text.insert(tk.END, improvements)
             self.improvement_text.config(state=tk.DISABLED)
 
-            store_rating(rating, feedback, improvements, resume_text, self.username.lower())
+            store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Resume Rater")
         else:
             messagebox.showerror("Error", "Please upload a resume file first.")
 
