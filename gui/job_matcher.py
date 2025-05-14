@@ -123,9 +123,9 @@ class JobMatcherGUI:
         self.improvement_text.config(state=tk.DISABLED)
 
         resume_text = self.preview_text.get("1.0", tk.END)
+        jd_preview_text = self.jd_preview_text.get("1.0", tk.END)
 
-
-        store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Job Matcher")
+        store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Job Matcher", jd_preview_text)
 
 def start_matcher(username):
     print("Starting Job Matcher...")
