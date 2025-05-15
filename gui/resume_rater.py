@@ -27,7 +27,7 @@ class ResumeRaterGUI:
         self.preview_label = tk.Label(master, text="Resume Preview:")
         self.preview_label.pack()
 
-        self.preview_text = tk.Text(master, height=15, width=60)
+        self.preview_text = tk.Text(master, height=15, width=100)
         self.preview_text.pack(pady=10)
         self.preview_text.config(state=tk.DISABLED)
 
@@ -36,13 +36,13 @@ class ResumeRaterGUI:
 
         self.feedback_label = tk.Label(master, text="Resume Feedback")
         self.feedback_label.pack()
-        self.feedback_text = tk.Text(master, height=10, width=60)
+        self.feedback_text = tk.Text(master, height=10, width=100)
         self.feedback_text.pack(pady=10)
         self.feedback_text.config(state=tk.DISABLED)
 
         self.improvement_label = tk.Label(master, text="Suggested Improvements")
         self.improvement_label.pack()
-        self.improvement_text = tk.Text(master, height=10, width=60)
+        self.improvement_text = tk.Text(master, height=10, width=100)
         self.improvement_text.pack(pady=10)
         self.improvement_text.config(state=tk.DISABLED)
 
@@ -89,7 +89,7 @@ class ResumeRaterGUI:
             self.improvement_text.insert(tk.END, improvements)
             self.improvement_text.config(state=tk.DISABLED)
 
-            store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Resume Rater")
+            store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Resume Rater", "N/A")
         else:
             messagebox.showerror("Error", "Please upload a resume file first.")
 

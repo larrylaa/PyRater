@@ -28,7 +28,7 @@ class JobMatcherGUI:
         self.preview_label = tk.Label(master, text="Resume Preview:")
         self.preview_label.pack()
 
-        self.preview_text = tk.Text(master, height=12, width=60)
+        self.preview_text = tk.Text(master, height=12, width=100)
         self.preview_text.pack(pady=5)
         self.preview_text.config(state=tk.DISABLED)
 
@@ -45,7 +45,7 @@ class JobMatcherGUI:
         self.jd_preview_label = tk.Label(master, text="Job Description Preview:")
         self.jd_preview_label.pack()
 
-        self.jd_preview_text = tk.Text(master, height=12, width=60)
+        self.jd_preview_text = tk.Text(master, height=12, width=100)
         self.jd_preview_text.pack(pady=5)
         self.jd_preview_text.config(state=tk.DISABLED)
 
@@ -56,13 +56,13 @@ class JobMatcherGUI:
         # Feedback & Improvements
         self.feedback_label = tk.Label(master, text="Fit Feedback")
         self.feedback_label.pack()
-        self.feedback_text = tk.Text(master, height=8, width=60)
+        self.feedback_text = tk.Text(master, height=8, width=100)
         self.feedback_text.pack(pady=5)
         self.feedback_text.config(state=tk.DISABLED)
 
         self.improvement_label = tk.Label(master, text="Suggested Improvements")
         self.improvement_label.pack()
-        self.improvement_text = tk.Text(master, height=8, width=60)
+        self.improvement_text = tk.Text(master, height=8, width=100)
         self.improvement_text.pack(pady=5)
         self.improvement_text.config(state=tk.DISABLED)
 
@@ -123,9 +123,9 @@ class JobMatcherGUI:
         self.improvement_text.config(state=tk.DISABLED)
 
         resume_text = self.preview_text.get("1.0", tk.END)
+        jd_preview_text = self.jd_preview_text.get("1.0", tk.END)
 
-
-        store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Job Matcher")
+        store_rating(rating, feedback, improvements, resume_text, self.username.lower(), "Job Matcher", jd_preview_text)
 
 def start_matcher(username):
     print("Starting Job Matcher...")
