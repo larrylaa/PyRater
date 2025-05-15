@@ -11,11 +11,35 @@ class ResumeRaterGUI:
         self.username = username
         master.title("PyRater - Resume Rater")
 
+        # Canvas for scrollable area
+        self.canvas = tk.Canvas(master, highlightthickness=0)
+        self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        # Bind mousewheel
+        self.canvas.bind_all("<MouseWheel>", self._on_mousewheel)
+
+        # Scrollable frame container
+        self.scrollable_frame = tk.Frame(self.canvas)
+        self.canvas_window = self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="n")
+
+        # Resize callback to center content
+        self.canvas.bind("<Configure>", self._center_content)
+
+        self.scrollable_frame.bind(
+            "<Configure>",
+            lambda e: self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        )
+
+        # Actual centered content frame
+        self.content_frame = tk.Frame(self.scrollable_frame)
+        self.content_frame.pack(anchor="n")
+
+        # ======= GUI WIDGETS START HERE ======= #
         self.rating_var = tk.StringVar(value="X / 100")
-        self.rating_label = tk.Label(master, textvariable=self.rating_var, font=("Arial", 24))
+        self.rating_label = tk.Label(self.content_frame, textvariable=self.rating_var, font=("Arial", 24))
         self.rating_label.pack(pady=10)
 
-        self.upload_frame = tk.Frame(master)
+        self.upload_frame = tk.Frame(self.content_frame)
         self.upload_frame.pack(pady=10)
 
         self.upload_button = tk.Button(self.upload_frame, text="Upload Resume", command=self.upload_file)
@@ -24,30 +48,39 @@ class ResumeRaterGUI:
         self.file_path_label = tk.Label(self.upload_frame, text="No file selected")
         self.file_path_label.pack(side=tk.LEFT)
 
-        self.preview_label = tk.Label(master, text="Resume Preview:")
+        self.preview_label = tk.Label(self.content_frame, text="Resume Preview:")
         self.preview_label.pack()
 
-        self.preview_text = tk.Text(master, height=15, width=100)
+        self.preview_text = tk.Text(self.content_frame, height=15, width=100)
         self.preview_text.pack(pady=10)
         self.preview_text.config(state=tk.DISABLED)
 
-        self.rate_button = tk.Button(master, text="Rate Resume", command=self.rate_resume, state=tk.DISABLED)
+        self.rate_button = tk.Button(self.content_frame, text="Rate Resume", command=self.rate_resume, state=tk.DISABLED)
         self.rate_button.pack(pady=10)
 
-        self.feedback_label = tk.Label(master, text="Resume Feedback")
+        self.feedback_label = tk.Label(self.content_frame, text="Resume Feedback")
         self.feedback_label.pack()
-        self.feedback_text = tk.Text(master, height=10, width=100)
+        self.feedback_text = tk.Text(self.content_frame, height=10, width=100)
         self.feedback_text.pack(pady=10)
         self.feedback_text.config(state=tk.DISABLED)
 
-        self.improvement_label = tk.Label(master, text="Suggested Improvements")
+        self.improvement_label = tk.Label(self.content_frame, text="Suggested Improvements")
         self.improvement_label.pack()
-        self.improvement_text = tk.Text(master, height=10, width=100)
+        self.improvement_text = tk.Text(self.content_frame, height=10, width=100)
         self.improvement_text.pack(pady=10)
         self.improvement_text.config(state=tk.DISABLED)
 
         self.resume_file_path = None
-        
+
+    def _on_mousewheel(self, event):
+        self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
+    def _center_content(self, event):
+        canvas_width = event.width
+        content_width = self.content_frame.winfo_reqwidth()
+        x_offset = max((canvas_width - content_width) // 2, 0)
+        self.canvas.coords(self.canvas_window, x_offset, 0)
+
     def upload_file(self):
         filepath = choose_pdf_file()
         if filepath:
@@ -96,5 +129,6 @@ class ResumeRaterGUI:
 def start_rater(username):
     print("Starting Resume Rater...")
     root = tk.Tk()
+    root.geometry("1000x800")
     ResumeRaterGUI(root, username)
     root.mainloop()
