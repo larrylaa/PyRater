@@ -51,8 +51,16 @@ class ResumeRaterGUI:
         self.preview_label = tk.Label(self.content_frame, text="Resume Preview:")
         self.preview_label.pack()
 
-        self.preview_text = tk.Text(self.content_frame, height=15, width=100)
-        self.preview_text.pack(pady=10)
+        preview_frame = tk.Frame(self.content_frame)
+        preview_frame.pack(pady=10)
+
+        self.preview_text = tk.Text(preview_frame, height=15, width=100, wrap=tk.WORD)
+        scroll_preview = tk.Scrollbar(preview_frame, command=self.preview_text.yview)
+        self.preview_text.configure(yscrollcommand=scroll_preview.set)
+
+        self.preview_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scroll_preview.pack(side=tk.RIGHT, fill=tk.Y)
+
         self.preview_text.config(state=tk.DISABLED)
 
         self.rate_button = tk.Button(self.content_frame, text="Rate Resume", command=self.rate_resume, state=tk.DISABLED)
@@ -60,14 +68,32 @@ class ResumeRaterGUI:
 
         self.feedback_label = tk.Label(self.content_frame, text="Resume Feedback")
         self.feedback_label.pack()
-        self.feedback_text = tk.Text(self.content_frame, height=10, width=100)
-        self.feedback_text.pack(pady=10)
+        
+        feedback_frame = tk.Frame(self.content_frame)
+        feedback_frame.pack(pady=10)
+
+        self.feedback_text = tk.Text(feedback_frame, height=10, width=100, wrap=tk.WORD)
+        scroll_feedback = tk.Scrollbar(feedback_frame, command=self.feedback_text.yview)
+        self.feedback_text.configure(yscrollcommand=scroll_feedback.set)
+
+        self.feedback_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scroll_feedback.pack(side=tk.RIGHT, fill=tk.Y)
+
         self.feedback_text.config(state=tk.DISABLED)
 
         self.improvement_label = tk.Label(self.content_frame, text="Suggested Improvements")
         self.improvement_label.pack()
-        self.improvement_text = tk.Text(self.content_frame, height=10, width=100)
-        self.improvement_text.pack(pady=10)
+        
+        improvement_frame = tk.Frame(self.content_frame)
+        improvement_frame.pack(pady=10)
+
+        self.improvement_text = tk.Text(improvement_frame, height=10, width=100, wrap=tk.WORD)
+        scroll_improvement = tk.Scrollbar(improvement_frame, command=self.improvement_text.yview)
+        self.improvement_text.configure(yscrollcommand=scroll_improvement.set)
+
+        self.improvement_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scroll_improvement.pack(side=tk.RIGHT, fill=tk.Y)
+
         self.improvement_text.config(state=tk.DISABLED)
 
         self.resume_file_path = None

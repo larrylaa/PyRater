@@ -41,9 +41,16 @@ class JobMatcherGUI:
         self.preview_label = tk.Label(self.inner_frame, text="Resume Preview:")
         self.preview_label.pack()
 
-        self.preview_text = tk.Text(self.inner_frame, height=12, width=100)
-        self.preview_text.pack(pady=5)
-        self.preview_text.config(state=tk.DISABLED)
+        preview_frame = tk.Frame(self.inner_frame)
+        preview_frame.pack(pady=5)
+
+        self.preview_text = tk.Text(preview_frame, height=12, width=100, wrap="word")
+        self.preview_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        preview_scrollbar = tk.Scrollbar(preview_frame, command=self.preview_text.yview)
+        preview_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.preview_text.config(yscrollcommand=preview_scrollbar.set, state=tk.DISABLED)
 
         self.jd_frame = tk.Frame(self.inner_frame)
         self.jd_frame.pack(pady=5)
@@ -57,24 +64,48 @@ class JobMatcherGUI:
         self.jd_preview_label = tk.Label(self.inner_frame, text="Job Description Preview:")
         self.jd_preview_label.pack()
 
-        self.jd_preview_text = tk.Text(self.inner_frame, height=12, width=100)
-        self.jd_preview_text.pack(pady=5)
-        self.jd_preview_text.config(state=tk.DISABLED)
+        jd_preview_frame = tk.Frame(self.inner_frame)
+        jd_preview_frame.pack(pady=5)
+
+        self.jd_preview_text = tk.Text(jd_preview_frame, height=12, width=100, wrap="word")
+        self.jd_preview_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        jd_scrollbar = tk.Scrollbar(jd_preview_frame, command=self.jd_preview_text.yview)
+        jd_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.jd_preview_text.config(yscrollcommand=jd_scrollbar.set, state=tk.DISABLED)
 
         self.rate_button = tk.Button(self.inner_frame, text="Chance Me", command=self.chance_resume, state=tk.DISABLED)
         self.rate_button.pack(pady=10)
 
         self.feedback_label = tk.Label(self.inner_frame, text="Fit Feedback")
         self.feedback_label.pack()
-        self.feedback_text = tk.Text(self.inner_frame, height=8, width=100)
-        self.feedback_text.pack(pady=5)
-        self.feedback_text.config(state=tk.DISABLED)
+
+        feedback_frame = tk.Frame(self.inner_frame)
+        feedback_frame.pack(pady=5)
+
+        self.feedback_text = tk.Text(feedback_frame, height=8, width=100, wrap="word")
+        self.feedback_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        feedback_scrollbar = tk.Scrollbar(feedback_frame, command=self.feedback_text.yview)
+        feedback_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.feedback_text.config(yscrollcommand=feedback_scrollbar.set, state=tk.DISABLED)
+
 
         self.improvement_label = tk.Label(self.inner_frame, text="Suggested Improvements")
         self.improvement_label.pack()
-        self.improvement_text = tk.Text(self.inner_frame, height=8, width=100)
-        self.improvement_text.pack(pady=5)
-        self.improvement_text.config(state=tk.DISABLED)
+
+        improvement_frame = tk.Frame(self.inner_frame)
+        improvement_frame.pack(pady=5)
+
+        self.improvement_text = tk.Text(improvement_frame, height=8, width=100, wrap="word")
+        self.improvement_text.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+        improvement_scrollbar = tk.Scrollbar(improvement_frame, command=self.improvement_text.yview)
+        improvement_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.improvement_text.config(yscrollcommand=improvement_scrollbar.set, state=tk.DISABLED)
 
         self.resume_file_path = None
         self.job_description_path = None
