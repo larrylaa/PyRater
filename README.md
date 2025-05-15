@@ -16,6 +16,7 @@ git clone https://github.com/larrylaa/PyRater.git
 
 - Get the `.env` file from the project owner, or create your own with your Supabase and Gemini API keys.
 - Place the `.env` file in the root of the cloned project directory.
+- Ensure it is named as **.env** (has to have a . in front to work)
 
 #### Install Python and Virtual Environment Tool
 
